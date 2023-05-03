@@ -7,44 +7,149 @@
         background-color: #e5e5cc;
         color: #333;
       }
-      h1, h2 {
+      h2, h3 {
         color: blue;
+      }
+      h2 {
+        text-align: center;
+      }
+      p {
+        text-align: justify;
       }
       ul, ol {
         color: #804000;
       }
+      .left {
+        width: 50%;
+        float: left;
+      }
+      .right {
+        width: 40%;
+        float: right;
+      }
+      table {
+        font-family: Arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+      }
+      
+      td, th {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+      }
+      
+      th {
+        background-color: #4c70af;
+        color: white;
+      }
+      
+      tr:nth-child(even) {
+        background-color: #f2f2f2;
+      }
+      
+      tr:nth-child(odd) {
+        background-color: #d4d4d4;
+      }
+/*       
+      a {
+        color: white;
+        text-decoration: none;
+      } */
+      
+      .leakage {
+        background-color: #FF4136;
+      }
+      
+      .wrong-output {
+        background-color: #FFDC00;
+      }
+      
+      .high-workload {
+        background-color: #0074D9;
+      }
+      
+      .performance {
+        background-color: #2ECC40;
+      }
     </style>
   </head>
   <body>
-    <h1>CCD: CUDA Code Smell catalog</h1>
-    <h2>About Tool</h2>
-    <p>
-      CCD: CUDACodesmellDetector is a tool to detect code smells in CUDA programming language.
-    </p>
-    <p>
-      <b>About CUDA:</b> CUDA is used in parallel programming, to facilitate faster and complex codes which need GPU(Graphical User Interface) assistance along with CPU processing. The first release of NVidia CUDA was in 2007, and since then, there have been tremendous applications built using this interface.
-    </p>
-    <p>
-      <b>Download the CCD tool from:</b> <a href="https://github.com/Abhijeetkumar96/CUDACodeSmell">https://github.com/Abhijeetkumar96/CUDACodeSmell</a>
-    </p>
-    <h2>Instructions to run the Tool:</h2>
-    <ol>
-      <li>Run the below command in command prompt or terminal: <code>pip install networkx</code></li>
-      <li>Download the DetectorCode folder in this repository</li>
-      <li>Execute below command to run the tool: <code>python3 tool.py</code></li>
-      <li>Select the Cuda project folder for which you want to detect code smells</li>
-      <li>Click on "Submit" button to see the smells detected.</li>
-    </ol>
-    <h2>Developed by:</h2>
-    <ul>
-      <li>Abhijit Kumar Sahu, Research Scholar, Parallel Computing, Computer Science, IIT Tirupati.</li>
-      <li>Jahnavi Kumar, Research Scholar, Software Engineering, Computer Science, IIT Tirupati.</li>
-    </ul>
-    <h2>Guidance of:</h2>
-    <ul>
-      <li>Dr. Sridhar Chimmalakonda, Professor, Software Engineering, Computer Science, IIT Tirupati.</li>
-      <li>Dr. G. Ramakrishna, Professor, Parallel Computing, Computer Science, IIT Tirupati.</li>
-      <li>Eashaan Rao, Research Scholar-PhD, Software Engineering, Computer Science, IIT Tirupati.</li>
-    </ul>
-  </body>
+    <h2>CCD: CUDA Code Smell Detector</h2>
+    <hr><br>
+    <div class="left"> 
+      <h3>About Tool</h3>
+      <p>
+        <b>CCD: CUDA Codesmell Detector</b> is a tool to detect code smells in CUDA programming language.
+      </p>
+      <p style="text-align: justify;">
+        <b>About CUDA:</b> CUDA is used in parallel programming, to facilitate faster and complex codes which need GPU(Graphical User Interface) assistance along with CPU processing. The first release of NVidia CUDA was in 2007, and since then, there have been tremendous applications built using this interface.
+      </p>
+      <p>
+        <b>Download the CCD tool from:</b> <a href="https://github.com/Abhijeetkumar96/CUDACodeSmell">https://github.com/Abhijeetkumar96/CUDACodeSmell</a>
+      </p>
+      <br>
+      <h3>Instructions to run the Tool:</h3>
+      <ol>
+        <li>Run the below command in command prompt or terminal: <code>pip install networkx</code></li>
+        <li>Download the DetectorCode folder in this repository</li>
+        <li>Execute below command to run the tool: <code>python3 tool.py</code></li>
+        <li>Select the Cuda project folder for which you want to detect code smells</li>
+        <li>Click on "Submit" button to see the smells detected.</li>
+      </ol>
+      <br>
+      <h3>Developed by:</h3>
+      <ul>
+        <li><a href="mailto:cs22s501@iittp.ac.in">Abhijit Kumar Sahu</a>, Research Scholar, Parallel Computing, Computer Science, IIT Tirupati.</li>
+        <li><a href="mailto:cs22s503@iittp.ac.in">Jahnavi Kumar</a>, Research Scholar, Software Engineering, Computer Science, IIT Tirupati.</li>
+      </ul>
+      <h3>Guidance of:</h3>
+      <ul>
+        <li><a href="mailto:ch@iittp.ac.in">Dr. Sridhar Chimmalakonda</a>, Professor, Software Engineering, Computer Science, IIT Tirupati.</li>
+        <li><a href="mailto:rama@iittp.ac.in">Dr. G. Ramakrishna</a>, Professor, Parallel Computing, Computer Science, IIT Tirupati.</li>
+        <li><a href="mailto:cs21d002@iittp.ac.in">Eashaan Rao</a>, Research Scholar-PhD, Software Engineering, Computer Science, IIT Tirupati.</li>
+      </ul>
+    </div>
+    <div class="right">
+        <h3>CCD Catalog</h3>
+        <table>
+            <tr>
+              <th>Code Smell #</th>
+              <th>Code Smell Name</th>
+              <th>Code Smell type</th>
+            </tr>
+            <tr class="leakage">
+              <td>Code Smell-1</td>
+              <td><a href="Unfreed_Mem.html">Unfreed Memory</a></td>
+              <td>Memory leakage</td>
+            </tr>
+            <tr class="leakage">
+              <td>Code Smell-2</td>
+              <td><a href="Active_Stream.html">Unnecessarily active stream</a></td>
+              <td>Memory leakage</td>
+            </tr>
+            <tr class="wrong-output">
+              <td>Code Smell-3</td>
+              <td><a href="Missing_Validation.html">Missing Validation</a></td>
+              <td>Wrong Output</td>
+            </tr>
+            <tr class="high-workload">
+              <td>Code Smell-4</td>
+              <td><a href="Unified_Mem.html">Instead, use Unified Memory</a></td>
+              <td>High Workload</td>
+            </tr>
+            <tr class="performance">
+              <td>Code Smell-5</td>
+              <td><a href="Thread_Divergance.html">Thread Divergance</a></td>
+              <td>Performance</td>
+            </tr>
+            <tr class="performance">
+              <td>Code Smell-6</td>
+              <td><a href="Mem_Coalescing.html">Memory Coalescing</a></td>
+              <td>Performance</td>
+            </tr>
+          </table>
+    </div>
+</body>
 </html>
+

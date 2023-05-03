@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Thread Divergance</title>
+	<style>
+		body {
+			background-color: #e5e5cc;
+			color: #333;
+			font-family: Arial, sans-serif;
+			font-size: 16px;
+			line-height: 1.6;
+			margin: 0;
+			padding: 0;
+		}
+        h1, h2 {
+		color: blue;
+		text-align: center;
+        }
+        p {
+            text-align: justify;
+        }
+        .container {
+            margin: 0 auto;
+            max-width: 800px;
+            padding: 20px;
+        }
+
+        .toggle {
+            display: none;
+        }
+
+        .toggle:checked + label {
+            background-color: #f1f1f1;
+        }
+
+        .toggle:checked + label + div {
+            display: block;
+        }
+
+        button {
+            background-color: #008CBA;
+            border: none;
+            border-radius: 8px;
+            color: #fff;
+            cursor: pointer;
+            padding: 12px 24px;
+            position: fixed;
+            right: 20px;
+            bottom: 20px;
+        }
+
+        button:hover {
+            background-color: #006E9F;
+        }
+
+        .back {
+            background-color: #008CBA;
+            border: none;
+            border-radius: 8px;
+            color: #fff;
+            cursor: pointer;
+            display: block;
+            margin: 20px auto;
+            padding: 12px 24px;
+            text-align: center;
+            width: 150px;
+        }
+
+        .back:hover {
+            background-color: #006E9F;
+        }
+        .section-explain .content-explain {
+        display: block;
+        }
+
+        .section-explain .toggle:checked ~ .content-explain {
+        display: none;
+        }
+        .section-refactor .content-refactor {
+        display: block;
+        }
+
+        .section-refactor .toggle:checked ~ .content-refactor {
+        display: none;
+        }
+        .button_1 {
+        display: inline-block;
+        padding: 6px 12px;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 1.42857143;
+        text-align: center;
+        white-space: nowrap;
+        vertical-align: middle;
+        -ms-touch-action: manipulation;
+        touch-action: manipulation;
+        cursor: pointer;
+        border: 1px solid transparent;
+        border-radius: 4px;
+        color: #090000;
+        background-color: #3b7bb4;
+        padding: 10px 20px;
+        }
+        .button_1:focus,
+        .button_1:active,
+        .button_1:hover {
+        outline: none;
+        text-decoration: none;
+        background-color: #3b7bb4;
+        color: #070000;
+        }
+
+    </style>
+    </head>
+    <body>
+        <header>
+            <a href="index.html"><img src="home.png" alt="Home" style="width: 3em; vertical-align: middle;"></a>
+            <h1>Thread Divergance</h1>
+            <h2>Code Smell - 5</h2>
+        </header>
+        <div class="container">
+            <h2>Explanation <img src="magnify.jpeg" alt="Magnifier" style="width: 1.5em; vertical-align: middle;"></h2>
+            <div class="section-explain">
+                <input type="checkbox" class="toggle" id="toggle1">
+                <label for="toggle1" class="button_1">Click to expand/collapse</label>
+                <div class="content-explain">
+                    <p>Thread divergence in CUDA occurs when threads within a thread block take different paths in the program flow, which can lead to increased execution time and decreased performance. </p>
+                    <p>It is a problem that arises in CUDA programming when different threads in a block follow different execution paths based on conditional statements, resulting in divergent behavior. This can lead to inefficient utilization of hardware resources and can impact performance. <br>
+                    Reduce if, if-else and conditional statemets. 
+                    </p>
+                    <p><b><u>How have we detected?</u></b><br>
+                        Detect the kernel code<br>
+                        Detect if there are any conditional loops like if, if-else and conditional statements in kernel code which would cause thread diverange.<br>
+                    </p>
+                </div>
+            </div>
+            <h2>Solution to Refactor <img src="idea.png" alt="Bulb" style="width: 1.5em; vertical-align: middle;"></h2>
+            <div class="section-refactor">
+                <input type="checkbox" class="toggle" id="toggle2">
+                <label for="toggle2" class="button_1">Click to expand/collapse</label>
+                <div class="content-refactor">
+                    <p>To refactor this code smell, you can reduce number of conditional statement.</p>
+                    <p>Try to optimise the number of if, if-else and conditional statements in kernel code. </p>
+                    <p>If possible, remove the conditional statements inside kernel calls and try using that logic before kernel call.</p>
+                    <p><b><u>Solution:</u></b><br> 
+                    Optimise conditional statements inside kernel code.<br>
+                </p>
+                </div>
+            </div>
+            <button onclick="scrollToTop()">Go back to top</button>
+        </div>
+        <script>
+            function scrollToTop() {
+                window.scrollTo({top: 0, behavior: 'smooth'});
+            }
+        </script>
+    </body>
+    </html>

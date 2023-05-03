@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Memory Coalescing</title>
+	<style>
+		body {
+			background-color: #e5e5cc;
+			color: #333;
+			font-family: Arial, sans-serif;
+			font-size: 16px;
+			line-height: 1.6;
+			margin: 0;
+			padding: 0;
+		}
+        h1, h2 {
+		color: blue;
+		text-align: center;
+        }
+        p {
+            text-align: justify;
+        }
+        .container {
+            margin: 0 auto;
+            max-width: 800px;
+            padding: 20px;
+        }
+
+        .toggle {
+            display: none;
+        }
+
+        .toggle:checked + label {
+            background-color: #f1f1f1;
+        }
+
+        .toggle:checked + label + div {
+            display: block;
+        }
+
+        button {
+            background-color: #008CBA;
+            border: none;
+            border-radius: 8px;
+            color: #fff;
+            cursor: pointer;
+            padding: 12px 24px;
+            position: fixed;
+            right: 20px;
+            bottom: 20px;
+        }
+
+        button:hover {
+            background-color: #006E9F;
+        }
+
+        .back {
+            background-color: #008CBA;
+            border: none;
+            border-radius: 8px;
+            color: #fff;
+            cursor: pointer;
+            display: block;
+            margin: 20px auto;
+            padding: 12px 24px;
+            text-align: center;
+            width: 150px;
+        }
+
+        .back:hover {
+            background-color: #006E9F;
+        }
+        .section-explain .content-explain {
+        display: block;
+        }
+
+        .section-explain .toggle:checked ~ .content-explain {
+        display: none;
+        }
+        .section-refactor .content-refactor {
+        display: block;
+        }
+
+        .section-refactor .toggle:checked ~ .content-refactor {
+        display: none;
+        }
+        .button_1 {
+        display: inline-block;
+        padding: 6px 12px;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 1.42857143;
+        text-align: center;
+        white-space: nowrap;
+        vertical-align: middle;
+        -ms-touch-action: manipulation;
+        touch-action: manipulation;
+        cursor: pointer;
+        border: 1px solid transparent;
+        border-radius: 4px;
+        color: #090000;
+        background-color: #3b7bb4;
+        padding: 10px 20px;
+        }
+        .button_1:focus,
+        .button_1:active,
+        .button_1:hover {
+        outline: none;
+        text-decoration: none;
+        background-color: #3b7bb4;
+        color: #070000;
+        }
+
+    </style>
+    </head>
+    <body>
+        <header>
+            <a href="index.html"><img src="home.png" alt="Home" style="width: 3em; vertical-align: middle;"></a>
+            <h1>Memory Coalescing</h1>
+            <h2>Code Smell - 6</h2>
+        </header>
+        <div class="container">
+            <h2>Explanation <img src="magnify.jpeg" alt="Magnifier" style="width: 1.5em; vertical-align: middle;"></h2>
+            <div class="section-explain">
+                <input type="checkbox" class="toggle" id="toggle1">
+                <label for="toggle1" class="button_1">Click to expand/collapse</label>
+                <div class="content-explain">
+                    <p>Memory coalescing is a technique used in CUDA programming language to optimize memory access patterns. It refers to the process of combining multiple memory requests into a single request to improve memory access efficiency. This is done by arranging the threads in a block such that the threads access consecutive memory addresses in the same memory bank. </p>
+                    <p>It is a problem that arises in CUDA programming when different threads in a block access different memory location without following any access pattern. Following are few cases to explain the memory coalescing: <br>
+                    <ul> 
+                        <li>If (t)th thread is accessing (i)th location, then its predictable behavior. Threads are not diverging. Performance will be high as usual.</li>
+                        <li>If (t)th thread is accessing (i + NUMBER )th location, then its predictable behavior. Threads are not diverging. Performance will be high as usual. </li>
+                        <li>If (t)th thread is accessing (i + t * NUMBER )th location, then its not predictable behavior. Threads are diverging. Performance might be impacted.</li>
+                    </ul>
+                    </p>
+                    <p><b><u>How have we detected?</u></b><br>
+                        Detect the kernel code<br>
+                        Extract the memory access expressing for each thread thread_expression<br>
+                        Find the block dimension to understand if the memory access pattern makes use of it.<br>
+                        If there are * or / mathematical operation is used on threadIdx.x or BlockDim.x to determine thread_expression, then memory access pattern is bad. Performance is impacted.<br>
+                    </p>
+                </div>
+            </div>
+            <h2>Solution to Refactor <img src="idea.png" alt="Bulb" style="width: 1.5em; vertical-align: middle;"></h2>
+            <div class="section-refactor">
+                <input type="checkbox" class="toggle" id="toggle2">
+                <label for="toggle2" class="button_1">Click to expand/collapse</label>
+                <div class="content-refactor">
+                    <p>To refactor this code smell, you can try using + or - operations on threadIdx.x to store and access memory location. </p>
+                    <p>Please try avoiding complicated opertions on threadId to determine the memory location being accessed. </p>
+                    <p>For faster access, store threads in a single wrap in continuous memory location inside a block or in continuous memory location between different blocks.</p>
+                    <p><b><u>Solution:</u></b><br> 
+                    Store and access continuous memory locations for all threads ina  block.<br>
+                </p>
+                </div>
+            </div>
+            <button onclick="scrollToTop()">Go back to top</button>
+        </div>
+        <script>
+            function scrollToTop() {
+                window.scrollTo({top: 0, behavior: 'smooth'});
+            }
+        </script>
+    </body>
+    </html>
